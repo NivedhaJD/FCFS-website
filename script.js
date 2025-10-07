@@ -42,11 +42,12 @@ document.getElementById("simulate").addEventListener("click", () => {
     let wt = tat - p.bt;
     results.push({ pid: p.pid, wt, tat });
 
-    // Create animated block
+    // Horizontal block width = burst time
     let block = document.createElement("div");
     block.className = "gantt-block";
-    block.style.animationDelay = `${index * 0.7}s`; // appear one after another
-    block.innerHTML = `${p.pid}<br>${start} - ${finish}`;
+    block.style.width = `${p.bt * 50}px`; // 50px per burst unit
+    block.style.animationDelay = `${index * 0.7}s`;
+    block.innerHTML = `${p.pid}`;
     wrapper.appendChild(block);
 
     time = finish;
@@ -57,11 +58,10 @@ document.getElementById("simulate").addEventListener("click", () => {
   pointer.id = "cpuPointer";
   wrapper.appendChild(pointer);
 
-  // Show pointer after blocks load
+  // Show pointer after Gantt blocks load
   setTimeout(() => {
     pointer.style.display = "block";
     let wrapperWidth = wrapper.offsetWidth;
-
     pointer.animate(
       [
         { transform: "translateX(0px)" },
